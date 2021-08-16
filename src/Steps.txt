@@ -1,0 +1,4 @@
+1. Set commit or branch (remote) to be ground truth.
+2. Download OR diff and pull commit or branch (remote) diff copy to diff folder.
+3. (Pre-commit) Compare local code to diff copy and create diff file(s).
+4. (Pre-commit) Create patch file(s) from diff.
