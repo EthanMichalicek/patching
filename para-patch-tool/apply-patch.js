@@ -7,19 +7,22 @@ const { writeFileSync, mkdirSync, existsSync } = require('fs');
 
 (async () => {
   const mainDir = await pkgDir(__dirname);
-  const packagePath = resolve(mainDir, 'package.json');
   const patchesPath = resolve(mainDir, 'para-patches');
-  const json = require(packagePath);
 
   if (!existsSync(patchesPath)) {
-    mkdirSync(patchesPath);
+    throw new Error("Patch folder not found!");
   }
 
-  const { remote, commit } = json["para-patch-tool"];
-
-  const { stdout: currentBranch, stderr: err } = await exec(`git branch -show-current | tr -d '\n'`);
-  const { stdout: diff, stderr: err } = await exec(`git diff ${currentBranch} ${remote}/${commit}`);
-  console.log(diff);
+  // const { commit } = json["para-patch-tool"];
+  // try {
+  //   await exec(`git fetch patch-diff`);
+  // } catch (err) {
+  //   throw new Error(err);
+  // }
+  // const { stdout: currentBranch, stderr: branchErr } = await exec(`git branch --show-current | tr -d '\n'`);
+  // if (branchErr) throw new Error(branchErr);
+  const { stderr: diffErr } = await exec(`git apply ${patchesPath}/my-patch.patch`);
+  if (diffErr) throw new Error(diffErr);
 })();
 
 function checkDiffCopy() {

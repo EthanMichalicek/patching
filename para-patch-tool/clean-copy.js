@@ -34,6 +34,12 @@ const writeFile = require('fs').writeFileSync;
   if (remote) {
     if (remote !== json['para-patch-tool']['remote']) {
       delete json['para-patch-tool']['commit'];
+      
+      try {
+        await exec(`git remote remove patch-diff`);
+      } catch(err) {}
+      const { stderr: remoteErr } = await exec(`git remote add patch-diff ${remote}`);
+      if (remoteErr) throw new Error(remoteErr);
     }
 
     json['para-patch-tool']['remote'] = remote;
@@ -69,4 +75,7 @@ const writeFile = require('fs').writeFileSync;
   } catch (err) {
     throw new Error(err);
   }
+
+  const { stdout: commitFromBranch, stderr: commitFromBranchErr } = await exec(`git ls-remote ${currentRemote} ${branch} | cut -c 1-40 | tr -d '\n'`);
+  if (commitFromBranchErr) throw new Error(commitFromBranchErr);
 })();
