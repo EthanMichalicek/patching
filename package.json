@@ -4,8 +4,21 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "set-diff-copy": "node ./para-patch-tool/clean-copy",
+    "patch": "node ./para-patch-tool/patch"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "commander": "^8.2.0",
+    "pkg-dir": "^5.0.0",
+    "promisify-child-process": "^4.1.1",
+    "simple-git": "^2.45.1"
+  },
+  "dependencies": {},
+  "para-patch-tool": {
+    "remote": "https://github.com/mozilla/hubs.git",
+    "commit": "2a22a88de602bf7a9ae2901dabe9aa4404414674"
+  }
 }
