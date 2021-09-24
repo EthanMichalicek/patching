@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "set-diff-copy": "node ./para-patch-tool/clean-copy",
-    "patch": "node ./para-patch-tool/patch",
+    "patch": "node ./para-patch-tool/create-patch",
     "apply-patch": "node ./para-patch-tool/apply-patch",
     "remove-patch": "node ./para-patch-tool/remove-patch"
   },
